@@ -1,5 +1,20 @@
+import dotEnvExtended from 'dotenv-extended';
+dotEnvExtended.load();
+
 import preprocess from 'svelte-preprocess';
 import node from '@sveltejs/adapter-node';
+
+const vite = {};
+
+if (process.env.NODE_ENV === 'production') {
+	vite['ssr'] = {
+		noExternal: ['kuzzle-sdk']
+	};
+} else {
+	vite['prerender'] = {
+		enabled: false
+	};
+}
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -8,11 +23,12 @@ const config = {
 	preprocess: preprocess(),
 
 	kit: {
-    adapter: node({
-      out: 'build'
-    }),
+		adapter: node({
+			out: 'build'
+		}),
 		// hydrate the <div id="svelte"> element in src/app.html
-		target: '#svelte'
+		target: '#svelte',
+		vite
 	}
 };
 

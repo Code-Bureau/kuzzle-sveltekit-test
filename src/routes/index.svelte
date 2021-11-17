@@ -1,7 +1,5 @@
 <script lang="ts">
-  // import { Kuzzle, WebSocket } from 'kuzzle-sdk';
-  import pkg from 'kuzzle-sdk';
-  const { Kuzzle, WebSocket } = pkg;
+  import { Kuzzle, WebSocket } from 'kuzzle-sdk'
   
   const kuzzle = new Kuzzle(
     new WebSocket('localhost')
